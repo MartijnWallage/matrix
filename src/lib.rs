@@ -1,3 +1,5 @@
+use std::fmt;
+
 pub mod ex00;
 
 #[derive(Debug, Clone)]
@@ -33,6 +35,15 @@ impl<K> From<Vec<K>> for Vector<K> {
     }
 }
 
+impl<K: fmt::Display> fmt::Display for Vector<K> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        for x in &self.data {
+            writeln!(f, "[{}]", x)?;
+        }
+        Ok(())
+    }
+}
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Matrix<K> {
     data: Vec<K>,
@@ -48,7 +59,9 @@ impl<K: Clone> Matrix<K> {
             cols,
         }
     }
+}
 
+impl<K> Matrix<K> {
     pub fn rows(&self) -> usize {
         self.rows
     }
@@ -58,13 +71,29 @@ impl<K: Clone> Matrix<K> {
     }
 
     pub fn get(&self, col: usize, row: usize) -> &K {
-        let index = row * self.cols + col;
+        let index = col * self.rows + row;
         &self.data[index]
     }
 
     pub fn set(&mut self, col: usize, row: usize, value: K) {
-        let index = row * self.cols + col;
+        let index = col * self.rows + row;
         self.data[index] = value;
+    }
+}
+
+impl<K: fmt::Display> fmt::Display for Matrix<K> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        for y in 0..self.rows {
+            write!(f, "[")?;
+            for x in 0..self.cols {
+                if x > 0 {
+                    write!(f, ", ")?;
+                }
+                write!(f, "{}", self.get(x, y))?;
+            }
+            writeln!(f, "]")?;
+        }
+        Ok(())
     }
 }
 
@@ -93,6 +122,8 @@ mod tests {
         assert_eq!(*v.get(0), 0.1);
         assert_eq!(*v.get(1), 0.2);
         assert_eq!(*v.get(2), 0.3);
+
+        println!("{}", v);
     }
 
     #[test]
@@ -114,11 +145,13 @@ mod tests {
             m,
             Matrix::<f64> {
                 data: vec![1.0, 0.0, 0.0,
-                     0.0, 0.0, 2.0,
-                     0.0, 3.0, 0.0,
+                     0.0, 0.0, 3.0,
+                     0.0, 2.0, 0.0,
                 ],
                 rows: 3,
                 cols: 3,
             });
+        
+        println!("{}", m);
     }
 }
