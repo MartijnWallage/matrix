@@ -2,7 +2,7 @@ use std::fmt;
 
 pub mod ex00;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Vector<K> {
     data: Vec<K>,
 }
@@ -22,6 +22,10 @@ impl<K> Vector<K> {
 
     pub fn get(&self, i: usize) -> &K {
         &self.data[i]
+    }
+
+    pub fn set(&mut self, i: usize, a: K) {
+        self.data[i] = a;
     }
 
     pub fn push(&mut self, new_data: K) {
