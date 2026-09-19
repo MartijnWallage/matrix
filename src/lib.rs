@@ -74,6 +74,14 @@ impl<K> Matrix<K> {
         self.cols
     }
 
+    pub fn is_square(&self) -> bool {
+        self.rows == self.cols
+    }
+
+    pub fn size(&self) -> usize {
+        self.rows * self.cols
+    }
+
     pub fn get(&self, col: usize, row: usize) -> &K {
         let index = col * self.rows + row;
         &self.data[index]
@@ -136,6 +144,8 @@ mod tests {
 
         assert_eq!(m.rows, 3);
         assert_eq!(m.cols, 3);
+        assert_eq!(m.size(), 9);
+        assert!(m.is_square());
 
         assert_eq!(*m.get(0,0), 0.0);
         assert_eq!(*m.get(1,1), 0.0);
