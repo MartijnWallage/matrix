@@ -6,19 +6,19 @@ use crate::Vector;
 use crate::Matrix;
 
 impl<K: AddAssign + SubAssign + MulAssign + Copy> Vector<K> {
-    fn add(&mut self, v: &Vector<K>) {
+    pub fn add(&mut self, v: &Vector<K>) {
         for i in 0..self.data.len() {
             self.data[i] += v.data[i];
         }
     }
 
-    fn sub(&mut self, v: &Vector<K>) {
+    pub fn sub(&mut self, v: &Vector<K>) {
         for i in 0..self.data.len() {
             self.data[i] -= v.data[i];
         }
     }
 
-    fn scl(&mut self, a: K) {
+    pub fn scl(&mut self, a: K) {
         for i in 0..self.data.len() {
             self.data[i] *= a;
         }
@@ -27,19 +27,19 @@ impl<K: AddAssign + SubAssign + MulAssign + Copy> Vector<K> {
 
 
 impl<K: AddAssign + SubAssign + MulAssign + Copy> Matrix<K> {
-    fn add(&mut self, v: &Matrix<K>) {
+    pub fn add(&mut self, v: &Matrix<K>) {
         for i in 0..self.size() {
             self.data[i] += v.data[i];
         }
     }
 
-    fn sub(&mut self, v: &Matrix<K>) {
+    pub fn sub(&mut self, v: &Matrix<K>) {
         for i in 0..self.size() {
             self.data[i] -= v.data[i];
         }
     }
 
-    fn scl(&mut self, a: K) {
+    pub fn scl(&mut self, a: K) {
         for i in 0..self.size() {
             self.data[i] *= a;
         }

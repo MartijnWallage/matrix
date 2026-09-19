@@ -1,6 +1,7 @@
 use std::fmt;
 
 pub mod ex00;
+pub mod ex01;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Vector<K> {
