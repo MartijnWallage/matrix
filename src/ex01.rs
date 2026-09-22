@@ -8,12 +8,13 @@ pub fn linear_combination(u: &[Vector<f64>], coefs: &[f64]) -> Vector<f64> {
     let dim = u[0].len(); // assume the length of the first vector is the length of each vector
     let mut result = Vector::<f64>::from(vec![0.0f64; dim]);
 
-    for coord in 0..dim {
+    for j in 0..dim {
         let mut acc = 0.0f64;
-        for k in 0..u.len() {
-            acc = coefs[k].mul_add(*u[k].get(coord), acc);
+        for i in 0..u.len() {
+            let value = *u[i].get(j);
+            acc = coefs[i].mul_add(value, acc);
         }
-        result.set(coord, acc);
+        result.set(j, acc);
     }
 
     result
