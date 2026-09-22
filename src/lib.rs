@@ -95,6 +95,21 @@ impl<K> Matrix<K> {
     }
 }
 
+impl<K: Clone> From<Vec<Vec<K>>> for Matrix<K> {
+    fn from(data: Vec<Vec<K>>) -> Self {
+        let rows = data.len();
+        let cols = data[0].len();
+
+        let mut flat = Vec::with_capacity(rows * cols);
+        for j in 0..cols {
+            for i in 0..rows {
+                flat.push(data[i][j].clone());
+            }
+        }
+        Matrix::<K>::new(rows, cols, flat)
+    }
+}
+
 impl<K: fmt::Display> fmt::Display for Matrix<K> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for y in 0..self.rows {

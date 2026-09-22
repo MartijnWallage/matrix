@@ -1,4 +1,30 @@
 use crate::Vector;
+use crate::Matrix;
+
+pub trait VectorSpace {
+    fn add(&mut self, other: &Self);
+    fn scl(&mut self, k: f64);
+}
+
+impl VectorSpace for Vector<f64> {
+    fn add(&mut self, other: &Self) {
+        self.add(other);
+    }
+
+    fn scl(&mut self, k: f64) {
+        self.scl(k);
+    }
+}
+
+impl VectorSpace for Matrix<f64> {
+    fn add(&mut self, other: &Self) {
+        self.add(other);
+    }
+
+    fn scl(&mut self, k: f64) {
+        self.scl(k);
+    }
+}
 
 /* Linear interpolation of u and v:
  * u: first vector
@@ -6,11 +32,11 @@ use crate::Vector;
  * t: scalar weight (should be f32)
  * result: (1-t)u + t*v
  */
-pub fn lerp(u: Vector<f64>, v: Vector<f64>, t: f64) -> Vector<f64> {
+pub fn lerp<V: VectorSpace + Clone>(u: V, v: V, t: f64) -> V {
     let mut result = u.clone();
     let mut v_cpy = v.clone();
 
-    result.scl(1f64-t);
+    result.scl(1.0-t);
     v_cpy.scl(t);
 
     result.add(&v_cpy);
@@ -21,15 +47,17 @@ pub fn lerp(u: Vector<f64>, v: Vector<f64>, t: f64) -> Vector<f64> {
 #[cfg(test)]
 mod tests {
     use crate::Vector;
+    use crate::Matrix;
     use crate::ex02::lerp;
 
     #[test]
     fn test_lerp() {
-        let u = Vector::<f64>::from(vec![2f64, 1f64]);
-        let v = Vector::<f64>::from(vec![4f64, 2f64]);
+        let u = Vector::from(vec![2f64, 1f64]);
+        let v = Vector::from(vec![4f64, 2f64]);
 
-        let result = lerp(u, v, 0.3);
+        let result = lerp::<Vector<f64>>(u, v, 0.3);
         println!("Result of lerp: {}", result);
-        assert_eq!(result, Vector::<f64>::from(vec![2.6, 1.3]));
+        assert!((result.get(0) - 2.6).abs() < 1e-6);
+        assert!((result.get(1) - 1.3).abs() < 1e-6);
     }
 }
