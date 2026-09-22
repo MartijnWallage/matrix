@@ -26,6 +26,16 @@ impl VectorSpace for Matrix<f64> {
     }
 }
 
+impl VectorSpace for f64 {
+    fn add(&mut self, other: &Self) {
+        *self += other;
+    }
+
+    fn scl(&mut self, k: f64) {
+        *self *= k;
+    }
+}
+
 /* Linear interpolation of u and v:
  * u: first vector
  * v: second vector
@@ -49,6 +59,13 @@ mod tests {
     use crate::Vector;
     use crate::Matrix;
     use crate::ex02::lerp;
+
+    #[test]
+    fn test_scalar() {
+        assert_eq!(lerp(0f64, 1f64, 0f64), 0f64);
+        assert_eq!(lerp(0f64, 1f64, 1f64), 1f64);
+        assert_eq!(lerp(0f64, 1f64, 0.3f64), 0.3f64);
+    }
 
     #[test]
     fn test_vector() {
