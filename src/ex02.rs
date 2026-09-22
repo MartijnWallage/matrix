@@ -51,7 +51,7 @@ mod tests {
     use crate::ex02::lerp;
 
     #[test]
-    fn test_lerp() {
+    fn test_vector() {
         let u = Vector::from(vec![2f64, 1f64]);
         let v = Vector::from(vec![4f64, 2f64]);
 
@@ -59,5 +59,19 @@ mod tests {
         println!("Result of lerp: {}", result);
         assert!((result.get(0) - 2.6).abs() < 1e-6);
         assert!((result.get(1) - 1.3).abs() < 1e-6);
+    }
+
+    #[test]
+    fn test_matrix() {
+        let m = Matrix::<f64>::from(vec![
+            vec![2f64, 1f64],
+            vec![3f64, 4f64]
+        ]);
+        let n = Matrix::<f64>::from(vec![
+            vec![20f64, 10f64],
+            vec![30f64, 40f64]
+        ]);
+
+        println!("Lerp matrices: {}", lerp(m, n, 0.5));
     }
 }

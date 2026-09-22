@@ -60,14 +60,23 @@ pub struct Matrix<K> {
 impl<K: Clone> Matrix<K> {
     pub fn new(rows: usize, cols: usize, data: K) -> Self {
         Self {
-            data: vec![data; rows * cols],
             rows,
             cols,
+            data: vec![data; rows * cols],
         }
     }
+
 }
 
 impl<K> Matrix<K> {
+    pub fn from_vec(rows: usize, cols: usize, data: Vec<K>) -> Self {
+        Self {
+            rows,
+            cols,
+            data,
+        }
+    }
+   
     pub fn rows(&self) -> usize {
         self.rows
     }
@@ -106,7 +115,7 @@ impl<K: Clone> From<Vec<Vec<K>>> for Matrix<K> {
                 flat.push(data[i][j].clone());
             }
         }
-        Matrix::<K>::new(rows, cols, flat)
+        Matrix::<K>::from_vec(rows, cols, flat)
     }
 }
 
