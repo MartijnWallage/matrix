@@ -3,6 +3,7 @@ use std::fmt;
 pub mod ex00;
 pub mod ex01;
 pub mod ex02;
+pub mod ex03;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Vector<K> {
@@ -70,6 +71,8 @@ impl<K: Clone> Matrix<K> {
 
 impl<K> Matrix<K> {
     pub fn from_vec(rows: usize, cols: usize, data: Vec<K>) -> Self {
+        assert_eq!(data.len(), cols * rows);
+
         Self {
             rows,
             cols,
