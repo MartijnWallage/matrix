@@ -5,7 +5,8 @@ impl Vector<f64> {
         let mut acc = 0f64;
 
         for i in 0..self.len() {
-            acc += *self.get(i) * *v.get(i);
+            acc = (*self.get(i))
+                .mul_add(*v.get(i), acc);
         }
 
         acc
