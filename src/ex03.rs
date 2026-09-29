@@ -1,7 +1,7 @@
 use crate::Vector;
 
 impl Vector<f32> {
-    pub fn dot(&self, v: Vector<f32>) -> f32 {
+    pub fn dot(&self, v: &Vector<f32>) -> f32 {
         let mut acc = 0.0;
 
         for i in 0..self.len() {
@@ -22,6 +22,6 @@ mod tests {
         let u = Vector::<f32>::from(vec![1.0, 2.0, 3.0]);
         let v = Vector::<f32>::from(vec![0.1, 0.2, 0.3]);
 
-        println!("Dot u*v: {}", u.dot(v));
+        println!("Dot u*v: {}", u.dot(&v));
     }
 }

@@ -4,6 +4,7 @@ pub mod ex00;
 pub mod ex01;
 pub mod ex02;
 pub mod ex03;
+pub mod ex04;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Vector<K> {
