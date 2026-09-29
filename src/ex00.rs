@@ -51,11 +51,11 @@ mod tests {
     use crate::Vector;
     use crate::Matrix;
 
-    fn approx_eq(a: f64, b: f64) -> bool {
+    fn approx_eq(a: f32, b: f32) -> bool {
         (a - b).abs() < 1e-6
     }
 
-    fn vector_approx_eq(u: &Vector::<f64>, v: &Vector::<f64>) -> bool {
+    fn vector_approx_eq(u: &Vector::<f32>, v: &Vector::<f32>) -> bool {
         if u.len() != v.len() {
             return false
         }
@@ -71,26 +71,26 @@ mod tests {
 
     #[test]
     fn vector() {
-        let mut v = Vector::<f64>::from(vec![0.1, 0.2, 0.3]);
-        let u = Vector::<f64>::from(vec![0.9, 0.8, 0.7]);
+        let mut v = Vector::<f32>::from(vec![0.1, 0.2, 0.3]);
+        let u = Vector::<f32>::from(vec![0.9, 0.8, 0.7]);
 
         v.add(&u);
         println!("Add: {}", v);
-        assert_eq!(v, Vector::<f64>::from(vec![1., 1., 1.]));
+        assert_eq!(v, Vector::<f32>::from(vec![1., 1., 1.]));
 
         v.sub(&u);
 
         println!("Sub: {}", v);
-        assert!(vector_approx_eq(&v, &Vector::<f64>::from(vec![0.1, 0.2, 0.3])));
+        assert!(vector_approx_eq(&v, &Vector::<f32>::from(vec![0.1, 0.2, 0.3])));
 
         v.scl(10.);
-        assert!(vector_approx_eq(&v, &Vector::<f64>::from(vec![1., 2., 3.])));
+        assert!(vector_approx_eq(&v, &Vector::<f32>::from(vec![1., 2., 3.])));
     }
 
     #[test]
     fn matrix() {
-        let mut m = Matrix::<f64>::new(3, 3, 0.0);
-        let u = Matrix::<f64>::new(3, 3, 0.1);
+        let mut m = Matrix::<f32>::new(3, 3, 0.0);
+        let u = Matrix::<f32>::new(3, 3, 0.1);
 
         m.set(0, 0, 1.0);
         m.set(2, 1, 2.0);
